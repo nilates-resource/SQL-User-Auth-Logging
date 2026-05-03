@@ -23,28 +23,26 @@ In an enterprise environment, tracking user access is critical for security comp
 EXEC pGirisSorgulama 'user@example.com', 'password123', '192.168.1.1'
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Güvenli Kullanıcı Kimlik Doğrulama ve Aktivite Günlüğü Sistemi
+Bu proje, MS SQL Server üzerinde Stored Procedure mimarisi kullanılarak geliştirilmiş, veritabanı seviyesinde bir kimlik doğrulama sistemidir. Sistem sadece giriş bilgilerini kontrol etmekle kalmaz; başarılı veya başarısız tüm girişimleri IP adresi ve özel durum mesajlarıyla birlikte kaydederek profesyonel bir denetim izi (audit trail) oluşturur.
 
-# Güvenli Kullanıcı Kimlik Doğrulama ve Aktivite Günlüğü Sistemi
+Öne Çıkan Özellikler
+*Çoklu Senaryo Yönetimi: IF-ELSE blokları sayesinde "Başarılı Giriş", "Yanlış Şifre" ve "Kullanıcı Bulunamadı" durumlarını birbirinden ayırır.
+*Aktivite Takibi (Loglama): Güvenlik denetimi ve kullanıcı davranışı analizi için her giriş denemesini tLoglar tablosuna otomatik olarak kaydeder.
+*Performans Odaklı Tasarım: SQL değişkenleri (DECLARE) kullanarak veritabanı üzerindeki yükü minimize eder ve işlem hızını artırır.
+*Güvenlik ve Veri Bütünlüğü: İş kurallarını uygulama katmanı yerine doğrudan veritabanı seviyesinde (Validation at Source) doğrular.
 
-##  Proje Hakkında
-Bu proje, MS SQL Server üzerinde Stored Procedure mimarisi kullanılarak geliştirilmiş, veritabanı seviyesinde bir kimlik doğrulama sistemidir. Sistem sadece giriş bilgilerini kontrol etmekle kalmaz; tüm girişimleri IP adresi ve özel durum mesajlarıyla kaydederek profesyonel bir **denetim izi (audit trail)** oluşturur.
-
-##  Öne Çıkan Özellikler
-*Çoklu Senaryo Yönetimi: `IF-ELSE` blokları ile "Başarılı Giriş", "Yanlış Şifre" ve "Kullanıcı Bulunamadı" durumlarını analiz eder.
-*Aktivite Takibi (Loglama): Güvenlik denetimi için her giriş denemesini `tLoglar` tablosuna otomatik olarak kaydeder.
-*Performans Odaklı Tasarım: SQL değişkenleri kullanarak veritabanı üzerindeki yükü minimize eder ve işlem hızını artırır.
-*Güvenlik ve Veri Bütünlüğü: İş kurallarını doğrudan veritabanı seviyesinde (**Validation at Source**) doğrular.
-
-## 🛠️ Teknik Detaylar
+Teknik Detaylar
 *Veritabanı: MS SQL Server (T-SQL)
-*Kullanılan Yapılar: Stored Procedures, Koşullu Mantık, Değişken Tanımlama, Veri Denetimi (Auditing).
+*Kullanılan Yapılar: Stored Procedures, Koşullu Mantık (Conditional Logic), Değişken Tanımlama, Veri Denetimi (Auditing).
 
-## 📊 İş ve YBS Perspektifi
-Bu sistem; kimin, ne zaman ve nereden giriş yapmaya çalıştığını kayıt altına alarak KVKK uyumluluğu ve siber güvenlik analizi için gerekli altyapıyı sunar. Teknik bir çözümün işletme güvenliğiyle nasıl birleştiğinin somut bir örneğidir.
+İş ve YBS Perspektifi
+Bu sistem; kimin, ne zaman ve nereden giriş yapmaya çalıştığını kayıt altına alarak KVKK uyumluluğu ve siber güvenlik analizi için gerekli altyapıyı sunar. Bu proje, teknik bir kodun işletme güvenliği ve stratejik karar alma süreçleriyle nasıl birleştiğini göstermektedir.
 
-##  Nasıl Çalıştırılır?
-1. `.sql` dosyasındaki tablo oluşturma komutlarını çalıştırın.
-2. `pGirisSorgulama` prosedürünü test parametreleri ile çağırın:
+Nasıl Çalıştırılır?
+.sql dosyasındaki tablo oluşturma komutlarını çalıştırın.
 
-```sql
+pGirisSorgulama prosedürünü test parametreleri ile çağırın:
+
+SQL
 EXEC pGirisSorgulama 'mail@adres.com', 'sifre123', '192.168.1.1'
